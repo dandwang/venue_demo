@@ -6,6 +6,7 @@ import 'dart:convert';
 import '../services/alarm_service.dart';
 
 import '../services/mock_data_service.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 final logger = Logger();
 
@@ -52,6 +53,9 @@ class _ListenerPageState extends State<ListenerPage> {
     super.initState();
     _initializeAlarm();
     _startListening();
+
+    // 页面初始化时，启用唤醒锁，防止熄屏
+    WakelockPlus.enable();
   }
 
   Future<void> _initializeAlarm() async {
@@ -282,6 +286,10 @@ class _ListenerPageState extends State<ListenerPage> {
 
   @override
   void dispose() {
+    // 页面销毁时，禁用唤醒锁，恢复系统自动熄屏
+    // 这一步很重要，能避免应用在后台时仍保持屏幕常亮，从而节省电量
+    WakelockPlus.disable();
+
     _stopListening();
     _alarmService.dispose();
     super.dispose();
