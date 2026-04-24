@@ -375,7 +375,15 @@ class _ListenerPageState extends State<ListenerPage> {
                     itemCount: fieldList.length,
                     itemBuilder: (context, index) {
                       final field = fieldList[index];
+
                       if (field is! Map) return const SizedBox.shrink();
+
+                      // final priceList = field['priceList'] as List?;
+                      // if (priceList != null &&
+                      //     priceList.every((item) => (item as Map<String, dynamic>)['status'] != '0')) {
+                      //   // 你的逻辑
+                      //   return const SizedBox.shrink();
+                      // }
 
                       return FieldCard(
                         fieldData: field,
@@ -628,7 +636,7 @@ class FieldCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
                     color: availableSlots.isNotEmpty ? Colors.green.shade600 : Colors.grey.shade600,
                     borderRadius: BorderRadius.circular(12),
@@ -642,14 +650,14 @@ class FieldCard extends StatelessWidget {
           // 时间段列表
           if (availableSlots.isEmpty)
             const Padding(
-              padding: EdgeInsets.all(20),
-              child: Center(
-                child: Text("暂无¥15.00可用时间段", style: TextStyle(color: Colors.grey)),
-              ),
+              padding: EdgeInsets.all(0),
+              // child: Center(
+              //   child: Text("暂无¥15.00可用时间段", style: TextStyle(color: Colors.grey)),
+              // ),
             )
           else
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(4.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
